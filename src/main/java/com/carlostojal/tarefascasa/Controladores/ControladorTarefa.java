@@ -1,10 +1,12 @@
 package com.carlostojal.tarefascasa.Controladores;
 
 import com.carlostojal.tarefascasa.Auxiliares.Autenticacao;
+import com.carlostojal.tarefascasa.Auxiliares.BD;
 import com.carlostojal.tarefascasa.Entidades.Tarefa;
 import com.carlostojal.tarefascasa.Entidades.Utilizador;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -16,6 +18,9 @@ public class ControladorTarefa {
     // obtém a listagem de tarefas
     @GetMapping("/tarefas")
     public ArrayList<Tarefa> obterTarefas() {
+
+        Connection c = BD.criarConexao();
+
         return tarefas;
     }
 
@@ -41,6 +46,9 @@ public class ControladorTarefa {
     @PatchMapping("/tarefas/marcar_como_concluida")
     public Tarefa marcarComoConcluida(@RequestBody Tarefa tarefa, @RequestHeader String authorization) {
 
+        tarefa.setConcluida(true);
+
+        return tarefa;
     }
 
 
